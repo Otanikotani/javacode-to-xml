@@ -1,4 +1,4 @@
-package com.aurea.generator.xml;
+package com.github.generator.xml;
 
 import java.io.File;
 
