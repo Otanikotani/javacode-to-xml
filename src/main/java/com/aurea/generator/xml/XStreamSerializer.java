@@ -1,6 +1,5 @@
 package com.aurea.generator.xml;
 
-import com.aurea.generator.Constants;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.*;
