@@ -6,7 +6,7 @@ import com.thoughtworks.xstream.converters.SingleValueConverter;
 public class NameExprConverter implements SingleValueConverter {
     @Override
     public String toString(Object obj) {
-        return ((NameExpr)obj).getName();
+        return ((NameExpr) obj).getName();
     }
 
     @Override

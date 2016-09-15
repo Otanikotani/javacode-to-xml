@@ -10,7 +10,7 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public class BinaryExprConverter implements Converter {
     @Override
     public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
-        BinaryExpr binaryExpr = (BinaryExpr)source;
+        BinaryExpr binaryExpr = (BinaryExpr) source;
         writer.addAttribute("op", binaryExpr.getOperator().name());
         if (binaryExpr.getLeft() != null) {
             writer.startNode(binaryExpr.getLeft().getClass().getSimpleName());
