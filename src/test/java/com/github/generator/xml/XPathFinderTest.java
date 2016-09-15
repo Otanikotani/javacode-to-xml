@@ -29,7 +29,7 @@ public class XPathFinderTest {
     public void toDocumentReturnsDocumentWithExpectedClassName() throws Exception {
         CompilationUnit cu = JavaParser.parse(simpleJavaClass);
 
-        Document document = new XStreamSerializer().toDocument(cu);
+        Document document = Converters.newConverter().toDocument(cu);
 
         XPath xPath = XPathFactory.newInstance().newXPath();
         XPathExpression classNameExpression = xPath.compile("/CompilationUnit/ClassOrInterfaceDeclaration/@name");
@@ -42,7 +42,7 @@ public class XPathFinderTest {
         File expectedXml = Paths.get(this.getClass().getResource("Foo.xml").toURI()).toFile();
         CompilationUnit cu = JavaParser.parse(simpleJavaClass);
 
-        String string = new XStreamSerializer().toXmlString(cu);
+        String string = Converters.newConverter().toXmlString(cu);
 
         assertThat(string).isXmlEqualToContentOf(expectedXml);
     }
@@ -53,7 +53,7 @@ public class XPathFinderTest {
         CompilationUnit cu = JavaParser.parse(simpleJavaClass);
         File file = folder.newFile("Foo.xml");
 
-        new XStreamSerializer().toFile(cu, file.toPath());
+        Converters.newConverter().toFile(cu, file.toPath());
 
         String result = new String(Files.readAllBytes(file.toPath()));
         assertThat(result).isXmlEqualToContentOf(expectedXml);
