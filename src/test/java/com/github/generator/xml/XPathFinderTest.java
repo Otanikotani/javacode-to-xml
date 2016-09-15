@@ -14,9 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class XPathFinderTest {
 
     @Test
-    public void testSimpleXPath() throws Exception {
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                .parse(this.getClass().getResourceAsStream("example.xml"));
+    public void parsedClassIsCalledNameExprConverter() throws Exception {
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(this.getClass().getResourceAsStream("example.xml"));
 
         XPath xPath = XPathFactory.newInstance().newXPath();
         XPathExpression classNameExpression = xPath.compile("/CompilationUnit/ClassOrInterfaceDeclaration/@name");
