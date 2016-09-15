@@ -7,10 +7,17 @@ import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.IfStmt;
 import com.thoughtworks.xstream.XStream;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
-import java.io.Writer;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,8 +27,7 @@ public class XStreamSerializer {
 
     private XStream xstream;
 
-    public void serialize(Node node, String className, Writer out) {
-        Path path = Paths.get(Constants.XML_OUT_DIR, className + ".xml");
+    public XStreamSerializer() {
         xstream = new XStream();
 
         xstream.aliasPackage("", "com.github.javaparser.ast.body");
@@ -60,8 +66,25 @@ public class XStreamSerializer {
         xstream.omitField(IfStmt.class, "thenStmt");
 
         xstream.setMode(XStream.XPATH_RELATIVE_REFERENCES);
+    }
 
-        xstream.toXML(node, out);
+    public String toXmlString(Node node) {
+        return xstream.toXML(node);
+    }
+
+    public void toFile(Node node, Path path) throws IOException {
+        xstream.toXML(node, new FileWriter(path.toFile()));
+    }
+
+    public Document toDocument(Node node) throws ParserConfigurationException {
+        String xml = xstream.toXML(node);
+        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        try {
+            return builder.parse(new InputSource(new StringReader(xml)));
+        } catch (IOException | SAXException e) {
+            e.printStackTrace();
+            return builder.newDocument();
+        }
     }
 
     private void nameAsAttributeFor(Class<? extends Node> clazz) {

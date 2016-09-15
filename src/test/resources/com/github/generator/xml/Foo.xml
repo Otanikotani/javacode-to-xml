@@ -1,0 +1,26 @@
+<CompilationUnit>
+    <PackageDeclaration>
+        <QualifiedNameExpr name="xml">
+            <QualifiedNameExpr name="generator">
+                <QualifiedNameExpr name="github">
+                    <NameExpr name="com"/>
+                    <qualifier reference="../NameExpr"/>
+                </QualifiedNameExpr>
+                <qualifier class="QualifiedNameExpr" reference="../QualifiedNameExpr"/>
+            </QualifiedNameExpr>
+            <qualifier class="QualifiedNameExpr" reference="../QualifiedNameExpr"/>
+        </QualifiedNameExpr>
+        <name class="QualifiedNameExpr" reference="../QualifiedNameExpr"/>
+    </PackageDeclaration>
+    <ClassOrInterfaceDeclaration name="Foo">
+        <NameExpr/>
+        <NameExpr name="Foo"/>
+        <modifiers>1</modifiers>
+        <members/>
+        <interface__>false</interface__>
+    </ClassOrInterfaceDeclaration>
+    <pakage reference="../PackageDeclaration"/>
+    <types>
+        <ClassOrInterfaceDeclaration reference="../../ClassOrInterfaceDeclaration"/>
+    </types>
+</CompilationUnit>
