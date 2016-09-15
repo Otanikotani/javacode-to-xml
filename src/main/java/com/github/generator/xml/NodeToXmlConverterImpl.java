@@ -21,13 +21,13 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 
-public class XStreamSerializer {
+class NodeToXmlConverterImpl implements NodeToXmlConverter {
 
     private final static NameExprConverter NAME_EXPR_CONVERTER = new NameExprConverter();
 
     private XStream xstream;
 
-    public XStreamSerializer() {
+    public NodeToXmlConverterImpl() {
         xstream = new XStream();
 
         xstream.aliasPackage("", "com.github.javaparser.ast.body");
