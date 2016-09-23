@@ -3,9 +3,11 @@ package com.github.generator.xml;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
+import com.github.javaparser.ast.body.VariableDeclaratorId;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.IfStmt;
+import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.thoughtworks.xstream.XStream;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -46,6 +48,9 @@ class NodeToXmlConverterImpl implements NodeToXmlConverter {
 
         nameAsAttributeFor(MethodCallExpr.class);
         nameAsAttributeFor(TypeDeclaration.class);
+
+        xstream.useAttributeFor(ClassOrInterfaceType.class, "name");
+        xstream.useAttributeFor(VariableDeclaratorId.class, "name");
 
         xstream.useAttributeFor(FieldAccessExpr.class, "field");
         xstream.registerLocalConverter(FieldAccessExpr.class, "field", NAME_EXPR_CONVERTER);
