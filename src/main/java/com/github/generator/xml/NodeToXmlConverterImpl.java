@@ -77,17 +77,23 @@ class NodeToXmlConverterImpl implements NodeToXmlConverter {
         return xstream.toXML(node);
     }
 
-    public void toFile(Node node, Path path) throws IOException {
-        xstream.toXML(node, new FileWriter(path.toFile()));
+    public void toFile(Node node, Path path) {
+        try {
+            xstream.toXML(node, new FileWriter(path.toFile()));
+        } catch (IOException e) {
+            throw new NodeToXmlConverterException("Failed to write xml to file", e);
+        }
     }
 
-    public Document toDocument(Node node) throws ParserConfigurationException {
+    public Document toDocument(Node node) {
         String xml = xstream.toXML(node);
-        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        DocumentBuilder builder = null;
         try {
+            builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             return builder.parse(new InputSource(new StringReader(xml)));
+        } catch (ParserConfigurationException e) {
+            throw new NodeToXmlConverterException("Failed to create new document builder!", e);
         } catch (IOException | SAXException e) {
-            e.printStackTrace();
             return builder.newDocument();
         }
     }
