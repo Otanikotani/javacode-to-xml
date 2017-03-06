@@ -3,8 +3,13 @@ package com.github.generator.xml;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
-import com.github.javaparser.ast.body.VariableDeclaratorId;
-import com.github.javaparser.ast.expr.*;
+import com.github.javaparser.ast.expr.AnnotationExpr;
+import com.github.javaparser.ast.expr.FieldAccessExpr;
+import com.github.javaparser.ast.expr.MethodCallExpr;
+import com.github.javaparser.ast.expr.Name;
+import com.github.javaparser.ast.expr.NameExpr;
+import com.github.javaparser.ast.expr.SimpleName;
+import com.github.javaparser.ast.expr.StringLiteralExpr;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.IfStmt;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
@@ -39,10 +44,11 @@ class NodeToXmlConverterImpl implements NodeToXmlConverter {
         xstream.aliasPackage("", "com.github.javaparser.ast");
         xstream.addDefaultImplementation(LinkedList.class, List.class);
 
-        nameAsAttributeFor(AnnotationExpr.class);
+//        nameAsAttributeFor(AnnotationExpr.class);
+        xstream.omitField(AnnotationExpr.class, "innerList");
+        xstream.omitField(AnnotationExpr.class, "observers");
 
         xstream.useAttributeFor(MethodDeclaration.class, "modifiers");
-        xstream.useAttributeFor(MethodDeclaration.class, "arrayCount");
         xstream.useAttributeFor(MethodDeclaration.class, "isDefault");
         nameAsAttributeFor(MethodDeclaration.class);
 
@@ -50,20 +56,22 @@ class NodeToXmlConverterImpl implements NodeToXmlConverter {
         nameAsAttributeFor(TypeDeclaration.class);
 
         xstream.useAttributeFor(ClassOrInterfaceType.class, "name");
-        xstream.useAttributeFor(VariableDeclaratorId.class, "name");
+        xstream.omitField(ClassOrInterfaceType.class, "innerList");
+        xstream.omitField(ClassOrInterfaceType.class, "observers");
 
-        xstream.useAttributeFor(FieldAccessExpr.class, "field");
-        xstream.registerLocalConverter(FieldAccessExpr.class, "field", NAME_EXPR_CONVERTER);
+        xstream.registerLocalConverter(FieldAccessExpr.class, "name", NAME_EXPR_CONVERTER);
 
         xstream.omitField(Node.class, "range");
         xstream.omitField(Node.class, "orphanComments");
         xstream.omitField(Node.class, "parentNode");
+        xstream.omitField(Node.class, "observers");
         xstream.omitField(BlockStmt.class, "stmts");
 
         xstream.useAttributeFor(StringLiteralExpr.class, "value");
-        xstream.useAttributeFor(NameExpr.class, "name");
+        xstream.useAttributeFor(Name.class, "identifier");
+        xstream.useAttributeFor(SimpleName.class, "identifier");
 
-        xstream.addImplicitCollection(Node.class, "childrenNodes");
+        xstream.addImplicitCollection(Node.class, "childNodes");
 
         xstream.registerConverter(new BinaryExprConverter());
 
