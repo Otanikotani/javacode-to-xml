@@ -34,7 +34,7 @@ public class XPathFinderTest {
         XPath xPath = XPathFactory.newInstance().newXPath();
         XPathExpression classNameExpression = xPath.compile("/CompilationUnit/ClassOrInterfaceDeclaration/@name");
         String name = (String) classNameExpression.evaluate(document, XPathConstants.STRING);
-        assertThat(name).isEqualTo("Foo");
+        assertThat(name).isEqualTo("SomeClass");
     }
 
     @Test

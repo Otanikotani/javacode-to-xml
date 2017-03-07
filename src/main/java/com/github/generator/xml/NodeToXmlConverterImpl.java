@@ -1,18 +1,41 @@
 package com.github.generator.xml;
 
+import com.github.javaparser.ast.ArrayCreationLevel;
 import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.NodeList;
+import com.github.javaparser.ast.PackageDeclaration;
+import com.github.javaparser.ast.body.AnnotationDeclaration;
+import com.github.javaparser.ast.body.AnnotationMemberDeclaration;
+import com.github.javaparser.ast.body.BodyDeclaration;
+import com.github.javaparser.ast.body.CallableDeclaration;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
+import com.github.javaparser.ast.body.EmptyMemberDeclaration;
+import com.github.javaparser.ast.body.EnumConstantDeclaration;
+import com.github.javaparser.ast.body.EnumDeclaration;
+import com.github.javaparser.ast.body.FieldDeclaration;
+import com.github.javaparser.ast.body.InitializerDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.TypeDeclaration;
+import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.FieldAccessExpr;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.Name;
-import com.github.javaparser.ast.expr.NameExpr;
 import com.github.javaparser.ast.expr.SimpleName;
 import com.github.javaparser.ast.expr.StringLiteralExpr;
+import com.github.javaparser.ast.expr.VariableDeclarationExpr;
+import com.github.javaparser.ast.modules.ModuleDeclaration;
+import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
+import com.github.javaparser.ast.nodeTypes.NodeWithMembers;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.IfStmt;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.type.TypeParameter;
+import com.github.javaparser.ast.type.UnionType;
+import com.github.javaparser.ast.type.VoidType;
+import com.github.javaparser.ast.type.*;
 import com.thoughtworks.xstream.XStream;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -25,6 +48,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,20 +68,14 @@ class NodeToXmlConverterImpl implements NodeToXmlConverter {
         xstream.aliasPackage("", "com.github.javaparser.ast");
         xstream.addDefaultImplementation(LinkedList.class, List.class);
 
-//        nameAsAttributeFor(AnnotationExpr.class);
-        xstream.omitField(AnnotationExpr.class, "innerList");
-        xstream.omitField(AnnotationExpr.class, "observers");
-
         xstream.useAttributeFor(MethodDeclaration.class, "modifiers");
         xstream.useAttributeFor(MethodDeclaration.class, "isDefault");
         nameAsAttributeFor(MethodDeclaration.class);
 
         nameAsAttributeFor(MethodCallExpr.class);
         nameAsAttributeFor(TypeDeclaration.class);
-
-        xstream.useAttributeFor(ClassOrInterfaceType.class, "name");
-        xstream.omitField(ClassOrInterfaceType.class, "innerList");
-        xstream.omitField(ClassOrInterfaceType.class, "observers");
+        nameAsAttributeFor(ClassOrInterfaceType.class);
+        nameAsAttributeFor(Parameter.class);
 
         xstream.registerLocalConverter(FieldAccessExpr.class, "name", NAME_EXPR_CONVERTER);
 
@@ -65,20 +83,90 @@ class NodeToXmlConverterImpl implements NodeToXmlConverter {
         xstream.omitField(Node.class, "orphanComments");
         xstream.omitField(Node.class, "parentNode");
         xstream.omitField(Node.class, "observers");
+        xstream.omitField(NodeList.class, "innerList");
+        xstream.omitField(NodeList.class, "observers");
+        xstream.omitField(NodeList.class, "parentNode");
         xstream.omitField(BlockStmt.class, "stmts");
 
         xstream.useAttributeFor(StringLiteralExpr.class, "value");
         xstream.useAttributeFor(Name.class, "identifier");
         xstream.useAttributeFor(SimpleName.class, "identifier");
+        xstream.useAttributeFor(ClassOrInterfaceDeclaration.class, "isInterface");
 
         xstream.addImplicitCollection(Node.class, "childNodes");
 
+        ignoreAnnotations();
+        ignoreMembers();
+
         xstream.registerConverter(new BinaryExprConverter());
+        xstream.registerConverter(new NodeWithNameConverter());
+        xstream.registerConverter(new AnnotationExprConverter());
+
+        xstream.useAttributeFor(ClassOrInterfaceDeclaration.class, "name");
+        xstream.useAttributeFor(VariableDeclarator.class, "name");
+        xstream.registerConverter(new SimpleNameConverter());
+
+        xstream.useAttributeFor(PrimitiveType.class, "type");
 
         xstream.omitField(IfStmt.class, "condition");
         xstream.omitField(IfStmt.class, "thenStmt");
+        xstream.omitField(FieldDeclaration.class, "initializer");
+        xstream.omitField(VariableDeclarator.class, "type");
+        xstream.omitField(VariableDeclarator.class, "initializer");
+        ignoreCollectionField(FieldDeclaration.class, "variables");
 
         xstream.setMode(XStream.XPATH_RELATIVE_REFERENCES);
+    }
+
+    private void ignoreAnnotations() {
+        Arrays.asList(AnnotationDeclaration.class,
+                AnnotationMemberDeclaration.class,
+                ArrayCreationLevel.class,
+                ArrayType.class,
+                BodyDeclaration.class,
+                CallableDeclaration.class,
+                ClassOrInterfaceDeclaration.class,
+                ClassOrInterfaceType.class,
+                ConstructorDeclaration.class,
+                EmptyMemberDeclaration.class,
+                EnumConstantDeclaration.class,
+                EnumDeclaration.class,
+                FieldDeclaration.class,
+                InitializerDeclaration.class,
+                IntersectionType.class,
+                MethodDeclaration.class,
+                ModuleDeclaration.class,
+                Name.class,
+                PackageDeclaration.class,
+                Parameter.class,
+                PrimitiveType.class,
+                TypeDeclaration.class,
+                TypeParameter.class,
+                UnionType.class,
+                VariableDeclarationExpr.class,
+                VoidType.class,
+                WildcardType.class).forEach(this::ignoreAnnotation);
+    }
+
+    private void ignoreAnnotation(Class<?> clazz) {
+        ignoreCollectionField(clazz, "annotations");
+    }
+
+    private void ignoreMembers() {
+        Arrays.asList(
+                AnnotationDeclaration.class,
+                ClassOrInterfaceDeclaration.class,
+                EnumDeclaration.class,
+                TypeDeclaration.class).forEach(this::ignoreMembers);
+    }
+
+    private void ignoreMembers(Class<?> clazz) {
+        ignoreCollectionField(clazz, "members");
+    }
+
+    private void ignoreCollectionField(Class<?> clazz, String collectionFieldsName) {
+        xstream.addImplicitCollection(clazz, collectionFieldsName);
+        xstream.omitField(clazz, collectionFieldsName);
     }
 
     public String toXmlString(Node node) {

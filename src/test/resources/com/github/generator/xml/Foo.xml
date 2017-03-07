@@ -1,26 +1,397 @@
 <CompilationUnit>
-    <PackageDeclaration>
-        <QualifiedNameExpr name="xml">
-            <QualifiedNameExpr name="generator">
-                <QualifiedNameExpr name="github">
-                    <NameExpr name="com"/>
-                    <qualifier reference="../NameExpr"/>
-                </QualifiedNameExpr>
-                <qualifier class="QualifiedNameExpr" reference="../QualifiedNameExpr"/>
-            </QualifiedNameExpr>
-            <qualifier class="QualifiedNameExpr" reference="../QualifiedNameExpr"/>
-        </QualifiedNameExpr>
-        <name class="QualifiedNameExpr" reference="../QualifiedNameExpr"/>
-    </PackageDeclaration>
-    <ClassOrInterfaceDeclaration name="Foo">
-        <NameExpr/>
-        <NameExpr name="Foo"/>
-        <modifiers>1</modifiers>
-        <members/>
-        <interface__>false</interface__>
+    <ImportDeclaration name="java.util.Date"/>
+    <ClassOrInterfaceDeclaration isInterface="false" name="SomeClass">
+        <NormalAnnotationExpr name="Annotation"/>
+        <SimpleName>SomeClass</SimpleName>
+        <FieldDeclaration>
+            <VariableDeclarator name="field">
+                <SimpleName>field</SimpleName>
+                <NullLiteralExpr/>
+                <ClassOrInterfaceType name="T">
+                    <SimpleName>T</SimpleName>
+                </ClassOrInterfaceType>
+            </VariableDeclarator>
+            <modifiers enum-type="Modifier">PRIVATE</modifiers>
+        </FieldDeclaration>
+        <FieldDeclaration>
+            <VariableDeclarator name="unusedField">
+                <SimpleName>unusedField</SimpleName>
+                <DoubleLiteralExpr value="12345.67890"/>
+                <PrimitiveType type="DOUBLE"/>
+            </VariableDeclarator>
+            <modifiers enum-type="Modifier">PRIVATE</modifiers>
+        </FieldDeclaration>
+        <FieldDeclaration>
+            <VariableDeclarator name="anotherString">
+                <SimpleName>anotherString</SimpleName>
+                <StringLiteralExpr value=""/>
+                <ClassOrInterfaceType name="UnknownType">
+                    <SimpleName>UnknownType</SimpleName>
+                </ClassOrInterfaceType>
+            </VariableDeclarator>
+            <modifiers enum-type="Modifier">PRIVATE</modifiers>
+        </FieldDeclaration>
+        <FieldDeclaration>
+            <VariableDeclarator name="staticField">
+                <SimpleName>staticField</SimpleName>
+                <IntegerLiteralExpr value="0"/>
+                <PrimitiveType type="INT"/>
+            </VariableDeclarator>
+            <modifiers enum-type="Modifier">PUBLIC,STATIC</modifiers>
+        </FieldDeclaration>
+        <FieldDeclaration>
+            <VariableDeclarator name="instanceFinalField">
+                <SimpleName>instanceFinalField</SimpleName>
+                <IntegerLiteralExpr value="0"/>
+                <PrimitiveType type="INT"/>
+            </VariableDeclarator>
+            <modifiers enum-type="Modifier">PUBLIC,FINAL</modifiers>
+        </FieldDeclaration>
+        <ConstructorDeclaration name="SomeClass">
+            <SimpleName>SomeClass</SimpleName>
+            <Parameter name="param1">
+                <SimpleName>param1</SimpleName>
+                <ClassOrInterfaceType name="AnInterface">
+                    <SimpleName>AnInterface</SimpleName>
+                </ClassOrInterfaceType>
+                <type class="ClassOrInterfaceType" reference="../ClassOrInterfaceType"/>
+                <isVarArgs>false</isVarArgs>
+                <varArgsAnnotations/>
+                <modifiers enum-type="Modifier"/>
+            </Parameter>
+            <Parameter name="reassignedParam">
+                <SimpleName>reassignedParam</SimpleName>
+                <ArrayType>
+                    <PrimitiveType type="INT"/>
+                    <componentType class="PrimitiveType" reference="../PrimitiveType"/>
+                </ArrayType>
+                <type class="ArrayType" reference="../ArrayType"/>
+                <isVarArgs>false</isVarArgs>
+                <varArgsAnnotations/>
+                <modifiers enum-type="Modifier"/>
+            </Parameter>
+            <Parameter name="param2">
+                <SimpleName>param2</SimpleName>
+                <PrimitiveType type="INT"/>
+                <type class="PrimitiveType" reference="../PrimitiveType"/>
+                <isVarArgs>false</isVarArgs>
+                <varArgsAnnotations/>
+                <modifiers enum-type="Modifier"/>
+            </Parameter>
+            <Parameter name="param3">
+                <SimpleName>param3</SimpleName>
+                <PrimitiveType type="INT"/>
+                <type class="PrimitiveType" reference="../PrimitiveType"/>
+                <isVarArgs>false</isVarArgs>
+                <varArgsAnnotations/>
+                <modifiers enum-type="Modifier"/>
+            </Parameter>
+            <BlockStmt>
+                <ExpressionStmt>
+                    <VariableDeclarationExpr>
+                        <VariableDeclarator name="reassignedValue">
+                            <SimpleName>reassignedValue</SimpleName>
+                            <BinaryExpr op="PLUS">
+                                <BinaryExpr op="PLUS" position="left">
+                                    <FieldAccessExpr position="left">
+                                        <ThisExpr/>
+                                        <SimpleName>staticField</SimpleName>
+                                        <scope class="ThisExpr" reference="../ThisExpr"/>
+                                        <name reference="../SimpleName"/>
+                                    </FieldAccessExpr>
+                                    <NameExpr position="right">
+                                        <SimpleName>param2</SimpleName>
+                                        <name reference="../SimpleName"/>
+                                    </NameExpr>
+                                </BinaryExpr>
+                                <NameExpr position="right">
+                                    <SimpleName>param3</SimpleName>
+                                    <name reference="../SimpleName"/>
+                                </NameExpr>
+                            </BinaryExpr>
+                            <PrimitiveType type="INT"/>
+                        </VariableDeclarator>
+                        <modifiers enum-type="Modifier"/>
+                        <variables/>
+                    </VariableDeclarationExpr>
+                    <expression class="VariableDeclarationExpr" reference="../VariableDeclarationExpr"/>
+                </ExpressionStmt>
+                <ExpressionStmt>
+                    <VariableDeclarationExpr>
+                        <VariableDeclarator name="localVar1">
+                            <SimpleName>localVar1</SimpleName>
+                        </VariableDeclarator>
+                        <VariableDeclarator name="localVar2">
+                            <SimpleName>localVar2</SimpleName>
+                        </VariableDeclarator>
+                        <VariableDeclarator name="localVar3">
+                            <SimpleName>localVar3</SimpleName>
+                        </VariableDeclarator>
+                        <VariableDeclarator name="localVar4">
+                            <SimpleName>localVar4</SimpleName>
+                            <PrimitiveType type="LONG"/>
+                        </VariableDeclarator>
+                        <modifiers enum-type="Modifier"/>
+                        <variables/>
+                    </VariableDeclarationExpr>
+                    <expression class="VariableDeclarationExpr" reference="../VariableDeclarationExpr"/>
+                </ExpressionStmt>
+                <ExpressionStmt>
+                    <VariableDeclarationExpr>
+                        <VariableDeclarator name="localVar">
+                            <SimpleName>localVar</SimpleName>
+                            <StringLiteralExpr value="IntelliJ"/>
+                            <PrimitiveType type="INT"/>
+                        </VariableDeclarator>
+                        <modifiers enum-type="Modifier"/>
+                        <variables/>
+                    </VariableDeclarationExpr>
+                    <comment class="comments.LineComment">
+                        <content> Error, incompatible types</content>
+                        <commentedNode class="ExpressionStmt" reference="../.."/>
+                    </comment>
+                    <expression class="VariableDeclarationExpr" reference="../VariableDeclarationExpr"/>
+                </ExpressionStmt>
+                <ExpressionStmt>
+                    <MethodCallExpr name="println">
+                        <FieldAccessExpr>
+                            <NameExpr>
+                                <SimpleName>System</SimpleName>
+                                <name reference="../SimpleName"/>
+                            </NameExpr>
+                            <SimpleName>out</SimpleName>
+                            <scope class="NameExpr" reference="../NameExpr"/>
+                            <name reference="../SimpleName"/>
+                        </FieldAccessExpr>
+                        <SimpleName>println</SimpleName>
+                        <BinaryExpr op="PLUS">
+                            <BinaryExpr op="PLUS" position="left">
+                                <NameExpr position="left">
+                                    <SimpleName>anotherString</SimpleName>
+                                    <name reference="../SimpleName"/>
+                                </NameExpr>
+                                <MethodCallExpr name="toString" position="right">
+                                    <SimpleName>toString</SimpleName>
+                                    <typeArguments/>
+                                    <arguments/>
+                                </MethodCallExpr>
+                            </BinaryExpr>
+                            <NameExpr position="right">
+                                <SimpleName>localVar</SimpleName>
+                                <name reference="../SimpleName"/>
+                            </NameExpr>
+                        </BinaryExpr>
+                        <scope class="FieldAccessExpr" reference="../FieldAccessExpr"/>
+                        <arguments/>
+                    </MethodCallExpr>
+                    <expression class="MethodCallExpr" reference="../MethodCallExpr"/>
+                </ExpressionStmt>
+                <ExpressionStmt>
+                    <VariableDeclarationExpr>
+                        <VariableDeclarator name="time">
+                            <SimpleName>time</SimpleName>
+                            <MethodCallExpr name="parse">
+                                <NameExpr>
+                                    <SimpleName>Date</SimpleName>
+                                    <name reference="../SimpleName"/>
+                                </NameExpr>
+                                <SimpleName>parse</SimpleName>
+                                <StringLiteralExpr value="1.2.3"/>
+                                <scope class="NameExpr" reference="../NameExpr"/>
+                                <arguments/>
+                            </MethodCallExpr>
+                            <PrimitiveType type="LONG"/>
+                        </VariableDeclarator>
+                        <modifiers enum-type="Modifier"/>
+                        <variables/>
+                    </VariableDeclarationExpr>
+                    <comment class="comments.LineComment">
+                        <content> Method is deprecated</content>
+                        <commentedNode class="ExpressionStmt" reference="../.."/>
+                    </comment>
+                    <expression class="VariableDeclarationExpr" reference="../VariableDeclarationExpr"/>
+                </ExpressionStmt>
+                <ExpressionStmt>
+                    <UnaryExpr>
+                        <NameExpr>
+                            <SimpleName>reassignedValue</SimpleName>
+                            <name reference="../SimpleName"/>
+                        </NameExpr>
+                        <expression class="NameExpr" reference="../NameExpr"/>
+                        <operator>POSTFIX_INCREMENT</operator>
+                    </UnaryExpr>
+                    <expression class="UnaryExpr" reference="../UnaryExpr"/>
+                </ExpressionStmt>
+                <ExpressionStmt>
+                    <MethodCallExpr name="run">
+                        <NameExpr>
+                            <SimpleName>field</SimpleName>
+                            <name reference="../SimpleName"/>
+                        </NameExpr>
+                        <SimpleName>run</SimpleName>
+                        <scope class="NameExpr" reference="../NameExpr"/>
+                        <arguments/>
+                    </MethodCallExpr>
+                    <expression class="MethodCallExpr" reference="../MethodCallExpr"/>
+                </ExpressionStmt>
+                <ExpressionStmt>
+                    <ObjectCreationExpr>
+                        <ClassOrInterfaceType name="SomeClass">
+                            <SimpleName>SomeClass</SimpleName>
+                        </ClassOrInterfaceType>
+                        <InitializerDeclaration>
+                            <BlockStmt>
+                                <ExpressionStmt>
+                                    <VariableDeclarationExpr>
+                                        <VariableDeclarator name="a">
+                                            <SimpleName>a</SimpleName>
+                                            <NameExpr>
+                                                <SimpleName>localVar</SimpleName>
+                                                <name reference="../SimpleName"/>
+                                            </NameExpr>
+                                            <PrimitiveType type="INT"/>
+                                        </VariableDeclarator>
+                                        <modifiers enum-type="Modifier"/>
+                                        <variables/>
+                                    </VariableDeclarationExpr>
+                                    <expression
+                                            class="VariableDeclarationExpr" reference="../VariableDeclarationExpr"/>
+                                </ExpressionStmt>
+                                <statements/>
+                            </BlockStmt>
+                            <isStatic>false</isStatic>
+                            <body reference="../BlockStmt"/>
+                        </InitializerDeclaration>
+                        <type reference="../ClassOrInterfaceType"/>
+                        <arguments/>
+                        <anonymousClassBody/>
+                    </ObjectCreationExpr>
+                    <expression class="ObjectCreationExpr" reference="../ObjectCreationExpr"/>
+                </ExpressionStmt>
+                <ExpressionStmt>
+                    <AssignExpr>
+                        <NameExpr>
+                            <SimpleName>reassignedParam</SimpleName>
+                            <name reference="../SimpleName"/>
+                        </NameExpr>
+                        <MethodCallExpr name="toArray">
+                            <ObjectCreationExpr>
+                                <ClassOrInterfaceType name="ArrayList">
+                                    <SimpleName>ArrayList</SimpleName>
+                                    <ClassOrInterfaceType name="String">
+                                        <SimpleName>String</SimpleName>
+                                    </ClassOrInterfaceType>
+                                    <typeArguments/>
+                                </ClassOrInterfaceType>
+                                <type reference="../ClassOrInterfaceType"/>
+                                <arguments/>
+                            </ObjectCreationExpr>
+                            <SimpleName>toArray</SimpleName>
+                            <ArrayCreationExpr>
+                                <ArrayCreationLevel>
+                                    <IntegerLiteralExpr value="0"/>
+                                    <dimension
+                                            class="IntegerLiteralExpr" reference="../IntegerLiteralExpr"/>
+                                </ArrayCreationLevel>
+                                <PrimitiveType type="INT"/>
+                                <levels/>
+                                <elementType class="PrimitiveType" reference="../PrimitiveType"/>
+                            </ArrayCreationExpr>
+                            <scope class="ObjectCreationExpr" reference="../ObjectCreationExpr"/>
+                            <arguments/>
+                        </MethodCallExpr>
+                        <target class="NameExpr" reference="../NameExpr"/>
+                        <value class="MethodCallExpr" reference="../MethodCallExpr"/>
+                        <operator>ASSIGN</operator>
+                    </AssignExpr>
+                    <expression class="AssignExpr" reference="../AssignExpr"/>
+                </ExpressionStmt>
+                <statements/>
+            </BlockStmt>
+            <comment class="comments.JavadocComment">
+                <content/>
+                <commentedNode class="ConstructorDeclaration" reference="../.."/>
+            </comment>
+            <modifiers enum-type="Modifier">PUBLIC</modifiers>
+            <typeParameters/>
+            <parameters/>
+            <thrownExceptions/>
+            <body reference="../BlockStmt"/>
+        </ConstructorDeclaration>
+        <TypeParameter>
+            <SimpleName>T</SimpleName>
+            <ClassOrInterfaceType name="Runnable">
+                <SimpleName>Runnable</SimpleName>
+            </ClassOrInterfaceType>
+            <comment class="comments.LineComment">
+                <content> some comment</content>
+                <commentedNode class="TypeParameter" reference="../.."/>
+            </comment>
+            <name reference="../SimpleName"/>
+            <typeBound/>
+        </TypeParameter>
+        <comment class="comments.JavadocComment">
+            <content>&#xd;
+ * Doc comment here for &lt;code&gt;SomeClass&lt;/code&gt;&#xd;
+ * @param T type parameter&#xd;
+ * @see Math#sin(double)&#xd;
+ </content>
+            <commentedNode class="ClassOrInterfaceDeclaration" reference="../.."/>
+        </comment>
+        <modifiers enum-type="Modifier">PUBLIC</modifiers>
+        <typeParameters/>
+        <extendedTypes/>
+        <implementedTypes/>
     </ClassOrInterfaceDeclaration>
-    <pakage reference="../PackageDeclaration"/>
-    <types>
-        <ClassOrInterfaceDeclaration reference="../../ClassOrInterfaceDeclaration"/>
-    </types>
+    <EnumDeclaration name="AnEnum">
+        <SimpleName>AnEnum</SimpleName>
+        <EnumConstantDeclaration>
+            <SimpleName>CONST1</SimpleName>
+            <name reference="../SimpleName"/>
+            <arguments/>
+            <classBody/>
+        </EnumConstantDeclaration>
+        <EnumConstantDeclaration>
+            <SimpleName>CONST2</SimpleName>
+            <name reference="../SimpleName"/>
+            <arguments/>
+            <classBody/>
+        </EnumConstantDeclaration>
+        <modifiers enum-type="Modifier"/>
+        <implementedTypes/>
+        <entries/>
+    </EnumDeclaration>
+    <ClassOrInterfaceDeclaration isInterface="true" name="AnInterface">
+        <SimpleName>AnInterface</SimpleName>
+        <FieldDeclaration>
+            <VariableDeclarator name="CONSTANT">
+                <SimpleName>CONSTANT</SimpleName>
+                <IntegerLiteralExpr value="2"/>
+                <PrimitiveType type="INT"/>
+            </VariableDeclarator>
+            <modifiers enum-type="Modifier"/>
+        </FieldDeclaration>
+        <MethodDeclaration isDefault="false" name="method">
+            <SimpleName>method</SimpleName>
+            <VoidType/>
+            <modifiers enum-type="Modifier"/>
+            <typeParameters/>
+            <parameters/>
+            <thrownExceptions/>
+            <type class="VoidType" reference="../VoidType"/>
+        </MethodDeclaration>
+        <modifiers enum-type="Modifier"/>
+        <typeParameters/>
+        <extendedTypes/>
+        <implementedTypes/>
+    </ClassOrInterfaceDeclaration>
+    <ClassOrInterfaceDeclaration isInterface="false" name="SomeAbstractClass">
+        <SimpleName>SomeAbstractClass</SimpleName>
+        <modifiers enum-type="Modifier">ABSTRACT</modifiers>
+        <typeParameters/>
+        <extendedTypes/>
+        <implementedTypes/>
+    </ClassOrInterfaceDeclaration>
+    <imports/>
+    <types/>
 </CompilationUnit>
