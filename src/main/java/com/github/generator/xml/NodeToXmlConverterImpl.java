@@ -10,7 +10,6 @@ import com.github.javaparser.ast.body.BodyDeclaration;
 import com.github.javaparser.ast.body.CallableDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
-import com.github.javaparser.ast.body.EmptyMemberDeclaration;
 import com.github.javaparser.ast.body.EnumConstantDeclaration;
 import com.github.javaparser.ast.body.EnumDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
@@ -19,7 +18,6 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
-import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.FieldAccessExpr;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.Name;
@@ -27,15 +25,16 @@ import com.github.javaparser.ast.expr.SimpleName;
 import com.github.javaparser.ast.expr.StringLiteralExpr;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.ast.modules.ModuleDeclaration;
-import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
-import com.github.javaparser.ast.nodeTypes.NodeWithMembers;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.IfStmt;
+import com.github.javaparser.ast.type.ArrayType;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.type.IntersectionType;
+import com.github.javaparser.ast.type.PrimitiveType;
 import com.github.javaparser.ast.type.TypeParameter;
 import com.github.javaparser.ast.type.UnionType;
 import com.github.javaparser.ast.type.VoidType;
-import com.github.javaparser.ast.type.*;
+import com.github.javaparser.ast.type.WildcardType;
 import com.thoughtworks.xstream.XStream;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -69,7 +68,6 @@ class NodeToXmlConverterImpl implements NodeToXmlConverter {
         xstream.addDefaultImplementation(LinkedList.class, List.class);
 
         xstream.useAttributeFor(MethodDeclaration.class, "modifiers");
-        xstream.useAttributeFor(MethodDeclaration.class, "isDefault");
         nameAsAttributeFor(MethodDeclaration.class);
 
         nameAsAttributeFor(MethodCallExpr.class);
@@ -80,6 +78,8 @@ class NodeToXmlConverterImpl implements NodeToXmlConverter {
         xstream.registerLocalConverter(FieldAccessExpr.class, "name", NAME_EXPR_CONVERTER);
 
         xstream.omitField(Node.class, "range");
+        xstream.omitField(Node.class, "tokenRange");
+        xstream.omitField(Node.class, "parsed");
         xstream.omitField(Node.class, "orphanComments");
         xstream.omitField(Node.class, "parentNode");
         xstream.omitField(Node.class, "observers");
@@ -128,7 +128,6 @@ class NodeToXmlConverterImpl implements NodeToXmlConverter {
                 ClassOrInterfaceDeclaration.class,
                 ClassOrInterfaceType.class,
                 ConstructorDeclaration.class,
-                EmptyMemberDeclaration.class,
                 EnumConstantDeclaration.class,
                 EnumDeclaration.class,
                 FieldDeclaration.class,

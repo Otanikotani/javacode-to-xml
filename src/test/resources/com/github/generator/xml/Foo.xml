@@ -5,82 +5,83 @@
         <SimpleName>SomeClass</SimpleName>
         <FieldDeclaration>
             <VariableDeclarator name="field">
-                <SimpleName>field</SimpleName>
-                <NullLiteralExpr/>
                 <ClassOrInterfaceType name="T">
                     <SimpleName>T</SimpleName>
                 </ClassOrInterfaceType>
+                <SimpleName>field</SimpleName>
+                <NullLiteralExpr/>
             </VariableDeclarator>
             <modifiers enum-type="Modifier">PRIVATE</modifiers>
         </FieldDeclaration>
         <FieldDeclaration>
             <VariableDeclarator name="unusedField">
+                <PrimitiveType type="DOUBLE"/>
                 <SimpleName>unusedField</SimpleName>
                 <DoubleLiteralExpr value="12345.67890"/>
-                <PrimitiveType type="DOUBLE"/>
             </VariableDeclarator>
             <modifiers enum-type="Modifier">PRIVATE</modifiers>
         </FieldDeclaration>
         <FieldDeclaration>
             <VariableDeclarator name="anotherString">
-                <SimpleName>anotherString</SimpleName>
-                <StringLiteralExpr value=""/>
                 <ClassOrInterfaceType name="UnknownType">
                     <SimpleName>UnknownType</SimpleName>
                 </ClassOrInterfaceType>
+                <SimpleName>anotherString</SimpleName>
+                <StringLiteralExpr value=""/>
             </VariableDeclarator>
             <modifiers enum-type="Modifier">PRIVATE</modifiers>
         </FieldDeclaration>
         <FieldDeclaration>
             <VariableDeclarator name="staticField">
+                <PrimitiveType type="INT"/>
                 <SimpleName>staticField</SimpleName>
                 <IntegerLiteralExpr value="0"/>
-                <PrimitiveType type="INT"/>
             </VariableDeclarator>
             <modifiers enum-type="Modifier">PUBLIC,STATIC</modifiers>
         </FieldDeclaration>
         <FieldDeclaration>
             <VariableDeclarator name="instanceFinalField">
+                <PrimitiveType type="INT"/>
                 <SimpleName>instanceFinalField</SimpleName>
                 <IntegerLiteralExpr value="0"/>
-                <PrimitiveType type="INT"/>
             </VariableDeclarator>
             <modifiers enum-type="Modifier">PUBLIC,FINAL</modifiers>
         </FieldDeclaration>
         <ConstructorDeclaration name="SomeClass">
             <SimpleName>SomeClass</SimpleName>
             <Parameter name="param1">
-                <SimpleName>param1</SimpleName>
                 <ClassOrInterfaceType name="AnInterface">
                     <SimpleName>AnInterface</SimpleName>
                 </ClassOrInterfaceType>
+                <SimpleName>param1</SimpleName>
                 <type class="ClassOrInterfaceType" reference="../ClassOrInterfaceType"/>
                 <isVarArgs>false</isVarArgs>
                 <varArgsAnnotations/>
                 <modifiers enum-type="Modifier"/>
             </Parameter>
             <Parameter name="reassignedParam">
-                <SimpleName>reassignedParam</SimpleName>
                 <ArrayType>
                     <PrimitiveType type="INT"/>
                     <componentType class="PrimitiveType" reference="../PrimitiveType"/>
+                    <origin>TYPE</origin>
                 </ArrayType>
+                <SimpleName>reassignedParam</SimpleName>
                 <type class="ArrayType" reference="../ArrayType"/>
                 <isVarArgs>false</isVarArgs>
                 <varArgsAnnotations/>
                 <modifiers enum-type="Modifier"/>
             </Parameter>
             <Parameter name="param2">
-                <SimpleName>param2</SimpleName>
                 <PrimitiveType type="INT"/>
+                <SimpleName>param2</SimpleName>
                 <type class="PrimitiveType" reference="../PrimitiveType"/>
                 <isVarArgs>false</isVarArgs>
                 <varArgsAnnotations/>
                 <modifiers enum-type="Modifier"/>
             </Parameter>
             <Parameter name="param3">
-                <SimpleName>param3</SimpleName>
                 <PrimitiveType type="INT"/>
+                <SimpleName>param3</SimpleName>
                 <type class="PrimitiveType" reference="../PrimitiveType"/>
                 <isVarArgs>false</isVarArgs>
                 <varArgsAnnotations/>
@@ -90,6 +91,7 @@
                 <ExpressionStmt>
                     <VariableDeclarationExpr>
                         <VariableDeclarator name="reassignedValue">
+                            <PrimitiveType type="INT"/>
                             <SimpleName>reassignedValue</SimpleName>
                             <BinaryExpr op="PLUS">
                                 <BinaryExpr op="PLUS" position="left">
@@ -109,7 +111,6 @@
                                     <name reference="../SimpleName"/>
                                 </NameExpr>
                             </BinaryExpr>
-                            <PrimitiveType type="INT"/>
                         </VariableDeclarator>
                         <modifiers enum-type="Modifier"/>
                         <variables/>
@@ -119,17 +120,20 @@
                 <ExpressionStmt>
                     <VariableDeclarationExpr>
                         <VariableDeclarator name="localVar1">
+                            <PrimitiveType type="LONG"/>
                             <SimpleName>localVar1</SimpleName>
                         </VariableDeclarator>
                         <VariableDeclarator name="localVar2">
+                            <PrimitiveType type="LONG"/>
                             <SimpleName>localVar2</SimpleName>
                         </VariableDeclarator>
                         <VariableDeclarator name="localVar3">
+                            <PrimitiveType type="LONG"/>
                             <SimpleName>localVar3</SimpleName>
                         </VariableDeclarator>
                         <VariableDeclarator name="localVar4">
-                            <SimpleName>localVar4</SimpleName>
                             <PrimitiveType type="LONG"/>
+                            <SimpleName>localVar4</SimpleName>
                         </VariableDeclarator>
                         <modifiers enum-type="Modifier"/>
                         <variables/>
@@ -139,9 +143,9 @@
                 <ExpressionStmt>
                     <VariableDeclarationExpr>
                         <VariableDeclarator name="localVar">
+                            <PrimitiveType type="INT"/>
                             <SimpleName>localVar</SimpleName>
                             <StringLiteralExpr value="IntelliJ"/>
-                            <PrimitiveType type="INT"/>
                         </VariableDeclarator>
                         <modifiers enum-type="Modifier"/>
                         <variables/>
@@ -172,7 +176,6 @@
                                 </NameExpr>
                                 <MethodCallExpr name="toString" position="right">
                                     <SimpleName>toString</SimpleName>
-                                    <typeArguments/>
                                     <arguments/>
                                 </MethodCallExpr>
                             </BinaryExpr>
@@ -189,6 +192,7 @@
                 <ExpressionStmt>
                     <VariableDeclarationExpr>
                         <VariableDeclarator name="time">
+                            <PrimitiveType type="LONG"/>
                             <SimpleName>time</SimpleName>
                             <MethodCallExpr name="parse">
                                 <NameExpr>
@@ -200,7 +204,6 @@
                                 <scope class="NameExpr" reference="../NameExpr"/>
                                 <arguments/>
                             </MethodCallExpr>
-                            <PrimitiveType type="LONG"/>
                         </VariableDeclarator>
                         <modifiers enum-type="Modifier"/>
                         <variables/>
@@ -244,18 +247,17 @@
                                 <ExpressionStmt>
                                     <VariableDeclarationExpr>
                                         <VariableDeclarator name="a">
+                                            <PrimitiveType type="INT"/>
                                             <SimpleName>a</SimpleName>
                                             <NameExpr>
                                                 <SimpleName>localVar</SimpleName>
                                                 <name reference="../SimpleName"/>
                                             </NameExpr>
-                                            <PrimitiveType type="INT"/>
                                         </VariableDeclarator>
                                         <modifiers enum-type="Modifier"/>
                                         <variables/>
                                     </VariableDeclarationExpr>
-                                    <expression
-                                            class="VariableDeclarationExpr" reference="../VariableDeclarationExpr"/>
+                                    <expression class="VariableDeclarationExpr" reference="../VariableDeclarationExpr"/>
                                 </ExpressionStmt>
                                 <statements/>
                             </BlockStmt>
@@ -288,12 +290,11 @@
                             </ObjectCreationExpr>
                             <SimpleName>toArray</SimpleName>
                             <ArrayCreationExpr>
+                                <PrimitiveType type="INT"/>
                                 <ArrayCreationLevel>
                                     <IntegerLiteralExpr value="0"/>
-                                    <dimension
-                                            class="IntegerLiteralExpr" reference="../IntegerLiteralExpr"/>
+                                    <dimension class="IntegerLiteralExpr" reference="../IntegerLiteralExpr"/>
                                 </ArrayCreationLevel>
-                                <PrimitiveType type="INT"/>
                                 <levels/>
                                 <elementType class="PrimitiveType" reference="../PrimitiveType"/>
                             </ArrayCreationExpr>
@@ -331,10 +332,10 @@
             <typeBound/>
         </TypeParameter>
         <comment class="comments.JavadocComment">
-            <content>&#xd;
- * Doc comment here for &lt;code&gt;SomeClass&lt;/code&gt;&#xd;
- * @param T type parameter&#xd;
- * @see Math#sin(double)&#xd;
+            <content>&#13;
+ * Doc comment here for &lt;code&gt;SomeClass&lt;/code&gt;&#13;
+ * @param T type parameter&#13;
+ * @see Math#sin(double)&#13;
  </content>
             <commentedNode class="ClassOrInterfaceDeclaration" reference="../.."/>
         </comment>
@@ -365,13 +366,13 @@
         <SimpleName>AnInterface</SimpleName>
         <FieldDeclaration>
             <VariableDeclarator name="CONSTANT">
+                <PrimitiveType type="INT"/>
                 <SimpleName>CONSTANT</SimpleName>
                 <IntegerLiteralExpr value="2"/>
-                <PrimitiveType type="INT"/>
             </VariableDeclarator>
             <modifiers enum-type="Modifier"/>
         </FieldDeclaration>
-        <MethodDeclaration isDefault="false" name="method">
+        <MethodDeclaration name="method">
             <SimpleName>method</SimpleName>
             <VoidType/>
             <modifiers enum-type="Modifier"/>
